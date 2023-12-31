@@ -1,37 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
 
-  const [currentTime, setCurrentTime] = useState(0);
+  const [username, setUsername] = useState("");
+  const [playerData, setPlayerData] = useState(null);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`https://overfast-api.tekrop.fr/players/${username}`);
+      
+      if (response.status === 404) {
+        setError('Player not found. Please check the Battle Tag and try again.');
+        setPlayerData(null);
+      } else {
+        const data = await response.json();
+        setPlayerData(data.summary);
+        setError('');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('An error occurred while fetching data. Please try again.');
+      setPlayerData(null);
+    }
 
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div>
+        <h1>Overwatch Player Search</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter Overwatch Battle Tag"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {playerData && (
+          <div>
+            <h2>Player Information</h2>
+            <pre>{JSON.stringify(playerData, null, 2)}</pre>
+            <div className='player-info'>
+              <img src={playerData.avatar} alt="avatar" className='avatar'/>
+              <h4 className='username'>{playerData.username}</h4>
+              <img src={playerData.endorsement.frame} alt="endorsement-frame" className="endorsement-frame"/>
+            </div>
+          </div>
+        )}
+      </div>
 
-        <p>The current time is {currentTime}.</p>
-
-      </header>
     </div>
   );
 }
