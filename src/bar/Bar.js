@@ -9,48 +9,14 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
     <ResponsiveBar
         data={data}
         keys={[
-            'hot dog',
+            'value',
         ]}
-        indexBy="country"
+        indexBy="hero"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ scheme: 'nivo' }}
-        defs={[
-            {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: '#38bcb2',
-                size: 4,
-                padding: 1,
-                stagger: true
-            },
-            {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: '#eed312',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-            }
-        ]}
-        fill={[
-            {
-                match: {
-                    id: 'fries'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'sandwich'
-                },
-                id: 'lines'
-            }
-        ]}
         borderColor={{
             from: 'color',
             modifiers: [
@@ -66,7 +32,7 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'country',
+            legend: 'hero',
             legendPosition: 'middle',
             legendOffset: 32,
             truncateTickAt: 0
@@ -75,7 +41,7 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'food',
+            legend: 'minutes played',
             legendPosition: 'middle',
             legendOffset: -40,
             truncateTickAt: 0
@@ -116,8 +82,8 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
             }
         ]}
         role="application"
-        ariaLabel="Nivo bar chart demo"
-        barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
+        ariaLabel="Nivo bar chart"
+        barAriaLabel={e=>e.id+": "+e.formattedValue+" with value: "+e.indexValue}
     />
 )
 

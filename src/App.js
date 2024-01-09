@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import './App.css';
 import MyResponsiveBar from './bar/Bar';
-import data from './bar/bar-data.json';
+import MyResponsivePie from './pie/Pie';
+// import data from './bar/bar-data.json';
+// import pieData from './pie/pie-data.json';
 
 function App() {
 
   const [username, setUsername] = useState("");
   const [playerData, setPlayerData] = useState(null);
   const [error, setError] = useState('');
+  const [apiData, setApiData] = useState([]);
 
   const handleSearch = async () => {
     try {
@@ -19,6 +22,7 @@ function App() {
       } else {
         const data = await response.json();
         setPlayerData(data);
+        setApiData(data.stats.console.quickplay.heroes_comparisons.time_played.values);
         setError('');
       }
     } catch (error) {
@@ -26,7 +30,18 @@ function App() {
       setError('An error occurred while fetching data. Please try again.');
       setPlayerData(null);
     }
+  };
 
+  const transformData = () => {
+    // Map over the API data and transform it
+    const transformedData = apiData.map(item => ({
+      id: item.hero,
+      label: item.hero,
+      value: item.value,
+      color: `hsl(144, 70%, 50%)`, // You can customize the color as needed
+    }));
+
+    return transformedData;
   };
 
   return (
@@ -42,9 +57,6 @@ function App() {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
-        <div className='bar-container'>
-          <MyResponsiveBar data={data}></MyResponsiveBar>
-        </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {playerData && (
           <div>
@@ -53,6 +65,13 @@ function App() {
               <img src={playerData.summary.avatar} alt="avatar" className='avatar'/>
               <h4 className='username'>{playerData.summary.username}</h4>
               <img src={playerData.summary.endorsement.frame} alt="endorsement-frame" className="endorsement-frame"/>
+            </div>
+            <h2>graphs:</h2>
+            <div className='graph-container'>
+              <MyResponsiveBar data={apiData}></MyResponsiveBar>
+            </div>
+            <div className='graph-container'>
+              <MyResponsivePie data={transformData()}></MyResponsivePie>
             </div>
             <h2>data i want:</h2>
             {playerData.stats.console.quickplay.heroes_comparisons.time_played.values.map((pair) => {
