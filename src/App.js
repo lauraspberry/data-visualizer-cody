@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import MyResponsiveBar from './bar/Bar';
+import data from './bar/bar-data.json';
 
 function App() {
 
@@ -16,7 +18,7 @@ function App() {
         setPlayerData(null);
       } else {
         const data = await response.json();
-        setPlayerData(data.summary);
+        setPlayerData(data);
         setError('');
       }
     } catch (error) {
@@ -40,16 +42,24 @@ function App() {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
+        <div className='bar-container'>
+          <MyResponsiveBar data={data}></MyResponsiveBar>
+        </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {playerData && (
           <div>
             <h2>Player Information</h2>
-            <pre>{JSON.stringify(playerData, null, 2)}</pre>
             <div className='player-info'>
-              <img src={playerData.avatar} alt="avatar" className='avatar'/>
-              <h4 className='username'>{playerData.username}</h4>
-              <img src={playerData.endorsement.frame} alt="endorsement-frame" className="endorsement-frame"/>
+              <img src={playerData.summary.avatar} alt="avatar" className='avatar'/>
+              <h4 className='username'>{playerData.summary.username}</h4>
+              <img src={playerData.summary.endorsement.frame} alt="endorsement-frame" className="endorsement-frame"/>
             </div>
+            <h2>data i want:</h2>
+            {playerData.stats.console.quickplay.heroes_comparisons.time_played.values.map((pair) => {
+              return <p>{pair.hero} and {pair.value}</p>;
+            })}
+            <h2>data dump:</h2>
+            <pre>{JSON.stringify(playerData, null, 2)}</pre>
           </div>
         )}
       </div>

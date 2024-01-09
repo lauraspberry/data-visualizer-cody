@@ -19,3 +19,7 @@
 .h4 {
   font-size: large;
 }
+
+.bar-container {
+  height: 300px;
+}
