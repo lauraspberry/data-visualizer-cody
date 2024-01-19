@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import './App.css';
 import MyResponsiveBar from './bar/Bar';
 import MyResponsivePie from './pie/Pie';
-// import data from './bar/bar-data.json';
-// import pieData from './pie/pie-data.json';
+import MyResponsiveBump from './bump/Bump';
+import MyResponsiveRadar from './radar/Radar';
+import SearchBar from './Searchbar';
+import PlayerInfo from './PlayerInfo'
+import bumpData from './bump/bump-data.json';
+import radarData from './radar/radar-data.json';
+import playerDataJson from './player-data.json'; // TODO: remove. this should be called from API
+
+import { SimpleGrid } from '@mantine/core';
 
 function App() {
 
   const [username, setUsername] = useState("");
-  const [playerData, setPlayerData] = useState(null);
+  const [playerData, setPlayerData] = useState(playerDataJson); // TODO: change to null
   const [error, setError] = useState('');
-  const [apiData, setApiData] = useState([]);
+  const [timePlayed, setTimePlayed] = useState(playerDataJson.stats.console.quickplay.heroes_comparisons.time_played.values); // TODO: change to empty list
 
   const handleSearch = async () => {
     try {
@@ -22,7 +29,7 @@ function App() {
       } else {
         const data = await response.json();
         setPlayerData(data);
-        setApiData(data.stats.console.quickplay.heroes_comparisons.time_played.values);
+        setTimePlayed(data.stats.console.quickplay.heroes_comparisons.time_played.values);
         setError('');
       }
     } catch (error) {
@@ -32,53 +39,43 @@ function App() {
     }
   };
 
-  const transformData = () => {
+  const transformToPieData = () => {
     // Map over the API data and transform it
-    const transformedData = apiData.map(item => ({
+    const transformedPieData = timePlayed.map(item => ({
       id: item.hero,
       label: item.hero,
       value: item.value,
       color: `hsl(144, 70%, 50%)`, // You can customize the color as needed
     }));
-
-    return transformedData;
+    return transformedPieData;
   };
 
   return (
     <div className="App">
       <div>
-        <h1>Overwatch Player Search</h1>
         <div>
-          <input
-            type="text"
-            placeholder="Enter Overwatch Battle Tag"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
+          <SearchBar username={username} setUsername={setUsername} handleSearch={handleSearch}></SearchBar>
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {playerData && (
           <div>
-            <h2>Player Information</h2>
-            <div className='player-info'>
-              <img src={playerData.summary.avatar} alt="avatar" className='avatar'/>
-              <h4 className='username'>{playerData.summary.username}</h4>
-              <img src={playerData.summary.endorsement.frame} alt="endorsement-frame" className="endorsement-frame"/>
-            </div>
-            <h2>graphs:</h2>
-            <div className='graph-container'>
-              <MyResponsiveBar data={apiData}></MyResponsiveBar>
-            </div>
-            <div className='graph-container'>
-              <MyResponsivePie data={transformData()}></MyResponsivePie>
-            </div>
-            <h2>data i want:</h2>
-            {playerData.stats.console.quickplay.heroes_comparisons.time_played.values.map((pair) => {
-              return <p>{pair.hero} and {pair.value}</p>;
-            })}
-            <h2>data dump:</h2>
-            <pre>{JSON.stringify(playerData, null, 2)}</pre>
+            <PlayerInfo playerData={playerData}></PlayerInfo>
+            {/* TODO: abstract graphs section into their own components */}
+            <h2>Graphs:</h2>
+            <SimpleGrid cols={2}>
+              <div className='graph-container'>
+                  <MyResponsiveBump data={bumpData}></MyResponsiveBump>
+              </div>
+              <div className='graph-container'>
+                  <MyResponsiveRadar data={radarData}></MyResponsiveRadar>
+              </div>
+              <div className='graph-container'>
+                <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
+              </div>
+              <div className='graph-container'>
+                <MyResponsivePie data={transformToPieData()}></MyResponsivePie>
+              </div>
+            </SimpleGrid>
           </div>
         )}
       </div>
