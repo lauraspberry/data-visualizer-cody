@@ -1,18 +1,15 @@
-import { Button, Container, Space, TextInput } from '@mantine/core';
+import { Button, Flex, TextInput } from '@mantine/core';
 
-function SearchBar( {username, setUsername, handleSearch } ) {
+function SearchBar( { setUsername, handleSearch } ) {
     return (
-        <Container size="xs" >
+        <Flex gap="sm" style={{ margin: 10 }}>
             <TextInput 
-                label="Enter Overwatch Battle Tag" 
-                description="Input description" 
+                placeholder="Enter Overwatch Battle Tag" 
                 onChange={(e) => setUsername(e.target.value)}
-                width={80}
+                style={{ width: 300 }}
             />
-            <Space h="md" />
             <Button onClick={handleSearch}>Search</Button>
-            <Space h="md" />
-        </Container>
+        </Flex>
     );
 }
 
