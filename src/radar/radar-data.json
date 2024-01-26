@@ -9,25 +9,13 @@
       "taste": "bitter",
       "chardonay": 91,
       "carmenere": 32,
-      "syrah": 54
+      "syrah": 104
     },
     {
       "taste": "heavy",
       "chardonay": 119,
       "carmenere": 111,
       "syrah": 50
-    },
-    {
-      "taste": "strong",
-      "chardonay": 112,
-      "carmenere": 31,
-      "syrah": 93
-    },
-    {
-      "taste": "sunny",
-      "chardonay": 37,
-      "carmenere": 102,
-      "syrah": 69
     }
   ]
   

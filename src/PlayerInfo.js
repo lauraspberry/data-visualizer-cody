@@ -1,4 +1,4 @@
-import { Image, Flex, Stack, Title } from '@mantine/core';
+import { Avatar, Image, Flex, Stack, Title } from '@mantine/core';
 
 function PlayerInfo( {playerData } ) {
     return (
@@ -11,7 +11,8 @@ function PlayerInfo( {playerData } ) {
                 direction="row"
                 wrap="wrap"
             >
-                <Image src={playerData.summary.avatar} alt="avatar" radius="xl" h={100} w="auto" />
+                {/* <Image src={playerData.summary.avatar} alt="avatar" radius="xl" h={100} w="auto" /> */}
+                <Avatar src={playerData.summary.avatar} alt="avatar" size="lg" radius="xl"></Avatar>
                 <Title order={1}>
                     {playerData.summary.username}
                 </Title>
