@@ -40,7 +40,8 @@ function App() {
         {playerData && (
           <div>
             <PlayerInfo playerData={playerData}></PlayerInfo>
-            <GraphSection timePlayed={timePlayed} ></GraphSection>
+            <GraphSection playerData={playerData} timePlayed={timePlayed} ></GraphSection>
+            {/* <pre>{JSON.stringify(playerData, null, 2)}</pre> */}
           </div>
         )}
       </div>

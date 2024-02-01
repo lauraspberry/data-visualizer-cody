@@ -1,21 +1,24 @@
 [
     {
-      "taste": "fruity",
-      "chardonay": 77,
-      "carmenere": 88,
-      "syrah": 104
+      "taste": "deaths_avg_per_10_min",
+      "reaper": 77,
+      "soldier-76": 88,
+      "hanzo": 104,
+      "tracer": 20
     },
     {
-      "taste": "bitter",
-      "chardonay": 91,
-      "carmenere": 32,
-      "syrah": 104
+      "taste": "eliminations_avg_per_10_min",
+      "reaper": 32,
+      "soldier-76": 43,
+      "hanzo": 104,
+      "tracer": 54
     },
     {
-      "taste": "heavy",
-      "chardonay": 119,
-      "carmenere": 111,
-      "syrah": 50
+      "taste": "final_blows_avg_per_10_min",
+      "reaper": 119,
+      "soldier-76": 30,
+      "hanzo": 43,
+      "tracer": 62
     }
   ]
   

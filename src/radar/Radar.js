@@ -10,7 +10,7 @@ import { ResponsiveRadar } from '@nivo/radar'
 const MyResponsiveRadar = ({ data /* see data tab */ }) => (
     <ResponsiveRadar
         data={data}
-        keys={[ 'chardonay', 'carmenere', 'syrah' ]}
+        keys={[ 'reaper', 'soldier-76', 'hanzo', 'tracer' ]}
         indexBy="taste"
         valueFormat=">-.2f"
         margin={{ top: 70, right: 80, bottom: 40, left: 80 }}

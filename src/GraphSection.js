@@ -7,7 +7,26 @@ import bumpData from './bump/bump-data.json';
 import radarData from './radar/radar-data.json';
 import { LineChart } from '@mantine/charts';
 
-function GraphSection( { timePlayed } ) {
+function GraphSection( {  playerData, timePlayed } ) {
+
+    const career_stats = playerData.stats.console.quickplay.career_stats;
+
+    const dps_characters = ["reaper", "soldier-76", "hanzo", "tracer"];
+
+    const averages = dps_characters.map(dps_char => ({
+      name: dps_char,
+      dict: career_stats[dps_char].filter(item => item.category === "average")[0].stats,
+    }));
+
+    // const transformToRadarData = () => {
+    //     const transformedRadarData = dps_characters.map(dps_char => ({
+    //       id: item.hero,
+    //       label: item.hero,
+    //       value: item.value,
+    //       color: `hsl(144, 70%, 50%)`, // You can customize the color as needed
+    //     }));
+    //     return transformedRadarData;
+    // }
 
     const transformToPieData = () => {
         // Map over the API data and transform it
@@ -87,6 +106,7 @@ function GraphSection( { timePlayed } ) {
             />
 
             </SimpleGrid>
+            <pre>{JSON.stringify(averages, null, 2)}</pre>
 
         </>
     );
