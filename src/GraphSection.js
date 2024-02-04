@@ -70,7 +70,7 @@ function GraphSection( {  playerData } ) {
         <>
             <h2>Graphs:</h2>
             <SimpleGrid 
-                // cols={2}
+                cols={2}
             >
               <div className='graph-container'>
                   <MyResponsiveRadar data={dps_averages} keys={dps_characters}></MyResponsiveRadar>

@@ -5,6 +5,8 @@ import PlayerInfo from './PlayerInfo'
 import playerDataJson from './player-data.json'; // TODO: remove. this should be called from API
 import GraphSection from './GraphSection';
 import Overview from './Overview';
+import ProgressBars from './ProgressBars';
+import { AppShell } from '@mantine/core';
 
 function App() {
 
@@ -33,18 +35,25 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <SearchBar username={username} setUsername={setUsername} handleSearch={handleSearch}></SearchBar>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {playerData && (
-          <div>
-            <PlayerInfo playerData={playerData}></PlayerInfo>
-            <Overview playerData={playerData}></Overview>
-            <GraphSection playerData={playerData} ></GraphSection>
-            {/* <pre>{JSON.stringify(playerData, null, 2)}</pre> */}
-          </div>
-        )}
-      </div>
+      <AppShell
+        header={{ height: 60 }}
+      >
+        <AppShell.Main style={{ width: '100%', height: "100%", padding: "12px" }} zIndex={100}>
+        <div>
+          <SearchBar username={username} setUsername={setUsername} handleSearch={handleSearch}></SearchBar>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {playerData && (
+            <div>
+              <PlayerInfo playerData={playerData}></PlayerInfo>
+              <Overview playerData={playerData}></Overview>
+              <GraphSection playerData={playerData} ></GraphSection>
+              <ProgressBars playerData={playerData}></ProgressBars>
+              {/* <pre>{JSON.stringify(playerData, null, 2)}</pre> */}
+            </div>
+          )}
+        </div>
+        </AppShell.Main>
+      </AppShell>
     </div>
   );
 }

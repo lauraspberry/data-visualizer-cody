@@ -3,7 +3,7 @@ import { Avatar, Image, Flex, Stack, Title } from '@mantine/core';
 function PlayerInfo( {playerData } ) {
     return (
         <Stack>
-            <Image src={playerData.summary.namecard} alt="namecard"/>
+            <Image src={playerData.summary.namecard} alt="namecard"  w="auto" />
             <Flex
                 gap="md"
                 justify="flex-start"
