@@ -4,6 +4,7 @@ import SearchBar from './Searchbar';
 import PlayerInfo from './PlayerInfo'
 import playerDataJson from './player-data.json'; // TODO: remove. this should be called from API
 import GraphSection from './GraphSection';
+import Overview from './Overview';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         {playerData && (
           <div>
             <PlayerInfo playerData={playerData}></PlayerInfo>
+            <Overview playerData={playerData}></Overview>
             <GraphSection playerData={playerData} ></GraphSection>
             {/* <pre>{JSON.stringify(playerData, null, 2)}</pre> */}
           </div>
