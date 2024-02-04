@@ -1,79 +1,70 @@
 import { SimpleGrid } from '@mantine/core';
 import MyResponsiveBar from './bar/Bar';
 import MyResponsivePie from './pie/Pie';
-import MyResponsiveBump from './bump/Bump';
 import MyResponsiveRadar from './radar/Radar';
-import bumpData from './bump/bump-data.json';
-import radarData from './radar/radar-data.json';
-import { LineChart } from '@mantine/charts';
+// import radarData from './radar/radar-data.json';
 
-function GraphSection( {  playerData, timePlayed } ) {
+function GraphSection( {  playerData } ) {
 
     const career_stats = playerData.stats.console.quickplay.career_stats;
-
+    const timePlayed = playerData.stats.console.quickplay.heroes_comparisons.time_played.values.filter(item => item.value > 2000);
+    
+    /** BEGIN radar graph: DPS characters **/
     const dps_characters = ["reaper", "soldier-76", "hanzo", "tracer"];
+    const dps_keys = ["deaths_avg_per_10_min", "eliminations_avg_per_10_min", "final_blows_avg_per_10_min"]
 
-    const averages = dps_characters.map(dps_char => ({
+    const career_stats_to_averages = dps_characters.map(dps_char => ({
       name: dps_char,
-      dict: career_stats[dps_char].filter(item => item.category === "average")[0].stats,
+      dict: career_stats[dps_char].filter(item => item.category === "average")[0].stats.filter(item => dps_keys.includes(item.key)),
     }));
 
-    // const transformToRadarData = () => {
-    //     const transformedRadarData = dps_characters.map(dps_char => ({
-    //       id: item.hero,
-    //       label: item.hero,
-    //       value: item.value,
-    //       color: `hsl(144, 70%, 50%)`, // You can customize the color as needed
-    //     }));
-    //     return transformedRadarData;
-    // }
+    const dps_averages = [];
 
+    career_stats_to_averages.forEach(hero => {
+        hero.dict.forEach(stat => {
+          let statEntry = dps_averages.find(entry => entry.statistic === stat.label);
+          if (!statEntry) {
+            statEntry = { statistic: stat.label };
+            dps_averages.push(statEntry);
+          }
+          statEntry[hero.name] = stat.value;
+        });
+    });
+    
+    /** BEGIN radar graph: healer characters **/
+    const healer_characters = ["mercy", "ana", "moira"];
+    const healer_keys = ["assists_avg_per_10_min", "eliminations_avg_per_10_min", "deaths_avg_per_10_min"];
+
+    const healer_career_stats_to_averages = healer_characters.map(dps_char => ({
+      name: dps_char,
+      dict: career_stats[dps_char].filter(item => item.category === "average")[0].stats.filter(item => healer_keys.includes(item.key)),
+    }));
+
+    const healer_averages = [];
+
+    healer_career_stats_to_averages.forEach(hero => {
+        hero.dict.forEach(stat => {
+          let statEntry = healer_averages.find(entry => entry.statistic === stat.label);
+          if (!statEntry) {
+            statEntry = { statistic: stat.label };
+            healer_averages.push(statEntry);
+          }
+          statEntry[hero.name] = stat.value;
+        });
+    });
+
+    /** BEGIN pie chart: time played **/
     const transformToPieData = () => {
-        // Map over the API data and transform it
         const transformedPieData = timePlayed
-        .filter(item => item.value > 2000)
         .map(item => ({
           id: item.hero,
           label: item.hero,
           value: item.value,
-          color: `hsl(144, 70%, 50%)`, // You can customize the color as needed
+          color: `hsl(144, 70%, 50%)`,
         }));
     
         return transformedPieData;
     };
-
-    const fruitData = [
-        {
-          date: 'Mar 22',
-          Apples: 2890,
-          Oranges: 2338,
-          Tomatoes: 2452,
-        },
-        {
-          date: 'Mar 23',
-          Apples: 2756,
-          Oranges: 2103,
-          Tomatoes: 2402,
-        },
-        {
-          date: 'Mar 24',
-          Apples: 3322,
-          Oranges: 986,
-          Tomatoes: 1821,
-        },
-        {
-          date: 'Mar 25',
-          Apples: 3470,
-          Oranges: 2108,
-          Tomatoes: 2809,
-        },
-        {
-          date: 'Mar 26',
-          Apples: 3129,
-          Oranges: 1726,
-          Tomatoes: 2290,
-        },
-    ];
     
     return (
         <>
@@ -82,10 +73,10 @@ function GraphSection( {  playerData, timePlayed } ) {
                 // cols={2}
             >
               <div className='graph-container'>
-                  <MyResponsiveBump data={bumpData}></MyResponsiveBump>
+                  <MyResponsiveRadar data={dps_averages} keys={dps_characters}></MyResponsiveRadar>
               </div>
               <div className='graph-container'>
-                  <MyResponsiveRadar data={radarData}></MyResponsiveRadar>
+                  <MyResponsiveRadar data={healer_averages} keys={healer_characters}></MyResponsiveRadar>
               </div>
               <div className='graph-container'>
                 <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
@@ -93,21 +84,8 @@ function GraphSection( {  playerData, timePlayed } ) {
               <div className='graph-container'>
                 <MyResponsivePie data={transformToPieData()}></MyResponsivePie>
               </div>
-              <LineChart
-                h={300}
-                data={fruitData}
-                dataKey="date"
-                series={[
-                    { name: 'Apples', color: 'indigo.6' },
-                    { name: 'Oranges', color: 'blue.6' },
-                    { name: 'Tomatoes', color: 'teal.6' },
-                ]}
-                curveType="linear"
-            />
-
             </SimpleGrid>
-            <pre>{JSON.stringify(averages, null, 2)}</pre>
-
+            {/* <pre>{JSON.stringify(career_stats_to_averages, null, 2)}</pre> */}
         </>
     );
 }

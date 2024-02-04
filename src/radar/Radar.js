@@ -7,11 +7,11 @@ import { ResponsiveRadar } from '@nivo/radar'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const MyResponsiveRadar = ({ data /* see data tab */ }) => (
+const MyResponsiveRadar = ({ data, keys }) => (
     <ResponsiveRadar
         data={data}
-        keys={[ 'reaper', 'soldier-76', 'hanzo', 'tracer' ]}
-        indexBy="taste"
+        keys={keys}
+        indexBy="statistic"
         valueFormat=">-.2f"
         margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
         borderColor={{ from: 'color' }}

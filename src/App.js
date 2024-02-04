@@ -10,7 +10,6 @@ function App() {
   const [username, setUsername] = useState("");
   const [playerData, setPlayerData] = useState(playerDataJson); // TODO: change to null
   const [error, setError] = useState('');
-  const [timePlayed, setTimePlayed] = useState(playerDataJson.stats.console.quickplay.heroes_comparisons.time_played.values); // TODO: change to empty list
 
   const handleSearch = async () => {
     try {
@@ -22,7 +21,6 @@ function App() {
       } else {
         const data = await response.json();
         setPlayerData(data);
-        setTimePlayed(data.stats.console.quickplay.heroes_comparisons.time_played.values);
         setError('');
       }
     } catch (error) {
@@ -40,7 +38,7 @@ function App() {
         {playerData && (
           <div>
             <PlayerInfo playerData={playerData}></PlayerInfo>
-            <GraphSection playerData={playerData} timePlayed={timePlayed} ></GraphSection>
+            <GraphSection playerData={playerData} ></GraphSection>
             {/* <pre>{JSON.stringify(playerData, null, 2)}</pre> */}
           </div>
         )}
