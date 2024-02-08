@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import SearchBar from './Searchbar';
 import PlayerInfo from './PlayerInfo'
-import playerDataJson from './player-data.json'; // TODO: remove. this should be called from API
+// import playerDataJson from './player-data.json'; // TODO: remove. this should be called from API
 import GraphSection from './GraphSection';
 import Overview from './Overview';
 import ProgressBars from './ProgressBars';
+import LandingPage from './LandingPage';
+import ErrorMessage from './ErrorMessage';
 import { AppShell, Title, Group, ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mantine/core';
 // ActionIcon, useMantineColorScheme, useComputedColorScheme
 import { IconMoon } from '@tabler/icons-react';
@@ -13,7 +15,7 @@ import { IconMoon } from '@tabler/icons-react';
 function App() {
 
   const [username, setUsername] = useState("");
-  const [playerData, setPlayerData] = useState(playerDataJson); // TODO: change to null
+  const [playerData, setPlayerData] = useState(null); // TODO: change to null
   const [error, setError] = useState('');
 
   const handleSearch = async () => {
@@ -60,7 +62,8 @@ function App() {
         </AppShell.Header>
         <AppShell.Main style={{ width: '100%', height: "100%", paddingTop: "60px" }} zIndex={100}>
         <div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {!playerData && <LandingPage></LandingPage>}
+          {error && <ErrorMessage error={error}></ErrorMessage>}
           {playerData && (
             <div>
               <PlayerInfo playerData={playerData}></PlayerInfo>
