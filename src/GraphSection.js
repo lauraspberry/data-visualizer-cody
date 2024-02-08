@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@mantine/core';
+import { Box, SimpleGrid, Title } from '@mantine/core';
 import MyResponsiveBar from './bar/Bar';
 import MyResponsivePie from './pie/Pie';
 import MyResponsiveRadar from './radar/Radar';
@@ -68,7 +68,15 @@ function GraphSection( {  playerData } ) {
     
     return (
         <>
-            <h2>Graphs:</h2>
+        <Box miw={700} p="xl" mx="auto">
+            <Title 
+                order={2} style={{ paddingLeft: "12px", paddingBottom: "12px" }} >
+                Graphs
+            </Title>
+            <Title 
+                order={3} style={{ paddingLeft: "12px", paddingBottom: "12px" }} c="gray" >
+                Averages: Radar Graph
+            </Title>
             <SimpleGrid 
                 cols={2}
             >
@@ -79,13 +87,22 @@ function GraphSection( {  playerData } ) {
                   <MyResponsiveRadar data={healer_averages} keys={healer_characters}></MyResponsiveRadar>
               </div>
             </SimpleGrid>
+            <Title 
+                order={3} style={{ paddingLeft: "12px", paddingBottom: "12px" }} c="gray" >
+                Time Played: Bar Graph
+            </Title>
             <div className='graph-container'>
                 <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
             </div>
+            <Title 
+                order={3} style={{ paddingLeft: "12px", paddingBottom: "12px" }} c="gray" >
+                Time Played: Pie Chart
+            </Title>
             <div className='graph-container'>
                 <MyResponsivePie data={transformToPieData()}></MyResponsivePie>
             </div>
             {/* <pre>{JSON.stringify(career_stats_to_averages, null, 2)}</pre> */}
+        </Box>
         </>
     );
 }

@@ -6,9 +6,9 @@ import playerDataJson from './player-data.json'; // TODO: remove. this should be
 import GraphSection from './GraphSection';
 import Overview from './Overview';
 import ProgressBars from './ProgressBars';
-import { AppShell, Title, Group } from '@mantine/core';
+import { AppShell, Title, Group, ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mantine/core';
 // ActionIcon, useMantineColorScheme, useComputedColorScheme
-// import { IconMoon } from '@tabler/icons-react';
+import { IconMoon } from '@tabler/icons-react';
 
 function App() {
 
@@ -35,8 +35,8 @@ function App() {
     }
   };
 
-  // const { setColorScheme } = useMantineColorScheme();
-  // const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return (
     <div className="App">
@@ -48,14 +48,14 @@ function App() {
               LevelUpGuac Stats
             </Title>
             <SearchBar username={username} setUsername={setUsername} handleSearch={handleSearch}></SearchBar>
-            {/* <ActionIcon
+            <ActionIcon
               onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
               variant="default"
               size="xl"
               aria-label="Toggle color scheme"
             >
               <IconMoon stroke={1.5} />
-            </ActionIcon> */}
+            </ActionIcon>
           </Group>
         </AppShell.Header>
         <AppShell.Main style={{ width: '100%', height: "100%", paddingTop: "60px" }} zIndex={100}>
