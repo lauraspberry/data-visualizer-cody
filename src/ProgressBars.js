@@ -1,4 +1,4 @@
-import { Box, Group, Progress, Table, Text, Title } from '@mantine/core';
+import { Box, Progress, Table, Text, Title } from '@mantine/core';
 
 function ProgressBars( {playerData } ) {
 
@@ -16,18 +16,6 @@ function ProgressBars( {playerData } ) {
         // games_lost: career_stats[character]?.filter(item => item.category === "game")[0].stats?.filter(item => item.key === "games_lost")[0]?.value,
         // dict: career_stats[character]?.filter(item => item.category === "game")[0].stats,
     }));
-
-    function OverviewCard({my_dict}) {
-        return (
-            <>
-                <Title order={4}>{my_dict.label}: </Title>
-                <Text size="lg">{my_dict.value}</Text>
-                <div class="progress-bar-container">
-                    <Progress value={my_dict.value/ 33895 * 100} />
-                </div>
-            </>
-        )
-    }
 
     const elements = [
         { position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
@@ -79,7 +67,7 @@ function ProgressBars( {playerData } ) {
                 Hero Breakdown
             </Title>
             
-            <Table>
+            <Table stickyHeader stickyHeaderOffset={60}>
                 <Table.Thead>
                     <Table.Tr>
                     <Table.Th>Hero</Table.Th>
@@ -90,18 +78,6 @@ function ProgressBars( {playerData } ) {
                 </Table.Thead>
                 <Table.Tbody>{hero_rows}</Table.Tbody>
             </Table>
-
-            {/* <Box p="lg">
-                {career_stats_to_hero_stats.map((item) => (
-                    <>
-                    <Title order={3}>{item?.name} </Title>
-                    {item.dict?.filter(item2 => item2.key === "time_played").map(item2 => {
-                        return <OverviewCard my_dict={item2}></OverviewCard>
-                    })}
-                    </>
-                ))}
-            </Box> */}
-            {/* <OverviewCard my_dict={item}></OverviewCard> */}
             {/* <pre>{JSON.stringify(career_stats_to_hero_stats, null, 2)}</pre> */}
         </Box>
         </>

@@ -95,7 +95,7 @@ function GraphSection( {  playerData } ) {
                 <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
             </div>
             <Title 
-                order={3} style={{ paddingLeft: "12px", paddingBottom: "12px" }} c="gray" >
+                order={3} style={{ padding: "12px" }} c="gray" >
                 Time Played: Pie Chart
             </Title>
             <div className='graph-container'>
