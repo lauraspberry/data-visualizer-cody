@@ -78,13 +78,13 @@ function GraphSection( {  playerData } ) {
               <div className='graph-container'>
                   <MyResponsiveRadar data={healer_averages} keys={healer_characters}></MyResponsiveRadar>
               </div>
-              <div className='graph-container'>
-                <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
-              </div>
-              <div className='graph-container'>
-                <MyResponsivePie data={transformToPieData()}></MyResponsivePie>
-              </div>
             </SimpleGrid>
+            <div className='graph-container'>
+                <MyResponsiveBar data={timePlayed}></MyResponsiveBar>
+            </div>
+            <div className='graph-container'>
+                <MyResponsivePie data={transformToPieData()}></MyResponsivePie>
+            </div>
             {/* <pre>{JSON.stringify(career_stats_to_averages, null, 2)}</pre> */}
         </>
     );

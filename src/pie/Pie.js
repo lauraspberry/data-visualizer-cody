@@ -48,7 +48,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
                 translateY: 56,
                 itemsSpacing: 0,
                 itemWidth: 100,
-                itemHeight: 18,
+                itemHeight: 30,
                 itemTextColor: '#999',
                 itemDirection: 'left-to-right',
                 itemOpacity: 1,
@@ -56,6 +56,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
                 symbolShape: 'circle',
             }
         ]}
+        theme={{ "text": { "fontSize": 14 }}}
     />
 )
 

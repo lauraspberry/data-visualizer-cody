@@ -34,18 +34,10 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
             tickRotation: 0,
             legend: 'hero',
             legendPosition: 'middle',
-            legendOffset: 32,
+            legendOffset: 40,
             truncateTickAt: 0
         }}
-        axisLeft={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'minutes played',
-            legendPosition: 'middle',
-            legendOffset: -40,
-            truncateTickAt: 0
-        }}
+        axisLeft={null}
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={{
@@ -84,6 +76,7 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
         role="application"
         ariaLabel="Nivo bar chart"
         barAriaLabel={e=>e.id+": "+e.formattedValue+" with value: "+e.indexValue}
+        theme={{ "text": { "fontSize": 14 }}}
     />
 )
 

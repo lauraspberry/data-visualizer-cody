@@ -15,7 +15,7 @@ const MyResponsiveRadar = ({ data, keys }) => (
         valueFormat=">-.2f"
         margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
         borderColor={{ from: 'color' }}
-        gridLabelOffset={36}
+        gridLabelOffset={12}
         dotSize={10}
         dotColor={{ theme: 'background' }}
         dotBorderWidth={2}
@@ -43,6 +43,7 @@ const MyResponsiveRadar = ({ data, keys }) => (
                 ]
             }
         ]}
+        theme={{ "text": { "fontSize": 14 }}}
     />
 )
 

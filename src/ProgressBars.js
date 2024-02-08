@@ -15,9 +15,11 @@ function ProgressBars( {playerData } ) {
         return (
             <>
                 {/* <Grid> */}
-                    <Title order={5}>{my_dict.label}: </Title>
-                    <Text>{my_dict.value}</Text>
-                    <Progress value={my_dict.value/ 33895 * 100} />
+                    <Title order={4}>{my_dict.label}: </Title>
+                    <Text size="lg">{my_dict.value}</Text>
+                    <div class="progress-bar-container">
+                        <Progress value={my_dict.value/ 33895 * 100} />
+                    </div>
                 {/* </Grid> */}
             </>
         )

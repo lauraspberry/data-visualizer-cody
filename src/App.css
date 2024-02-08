@@ -1,3 +1,7 @@
 .graph-container {
   height: 600px;
 }
+
+.progress-bar-container {
+  width: 50%;
+}

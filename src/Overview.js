@@ -22,8 +22,8 @@ function Overview( {playerData } ) {
     function OverviewCard({my_dict}) {
         return (
             <Paper shadow="xs" p="lg">
-                <Title order={5}>{my_dict.label}: </Title>
-                <Text>{my_dict.value}</Text>
+                <Title order={4}>{my_dict.label}: </Title>
+                <Text size="lg">{my_dict.value}</Text>
             </Paper>
         )
     }
