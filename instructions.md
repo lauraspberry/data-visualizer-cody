@@ -96,7 +96,7 @@ now you can run `flask run` from the `api` directory. with no errors, the termin
 <img width="500" alt="Screenshot 2023-12-30 at 8 02 16 PM" src="https://github.com/lauraspberry/data-visualizer-cody/assets/51841883/c437c1f1-cb60-43a2-853d-a693822fdac0">
 
 
-now, we need to configure the react app to connect to flask. find package.json and add a proxy key: 
+now, we need to configure the react app to connect to flask. find package.json and add a proxy key, as the last element in the JSON: 
 ```
   "proxy": "http://localhost:5000"
 ```
