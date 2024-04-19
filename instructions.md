@@ -86,6 +86,12 @@ def get_current_time():
     return {'time': time.time()}
 ```
 
+Now, add a `.flaskenv` file and add the appropriate environment variables: 
+```
+FLASK_APP=api.py
+FLASK_ENV=development
+```
+
 now you can run `flask run` from the `api` directory. with no errors, the terminal should look like this:
 <img width="500" alt="Screenshot 2023-12-30 at 8 02 16 PM" src="https://github.com/lauraspberry/data-visualizer-cody/assets/51841883/c437c1f1-cb60-43a2-853d-a693822fdac0">
 
