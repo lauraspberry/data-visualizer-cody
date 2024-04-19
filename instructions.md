@@ -78,21 +78,28 @@ $ cd api
 
 In the API folder, create a single file called _api.py_:
 ```
-import time
-from flask import Flask
-app = Flask(__name__)
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+from flask import Flask, jsonify
+import requests
+
+@app.route('/api/general/stats')
+def proxy():
+    try:
+        # Forward the request to the target API server
+        response = requests.get('https://ch.tetr.io/api/users/tetricado')
+        data = response.json()
+        return jsonify(data)
+    except Exception as e:
+        print('Error proxying request:', e)
+        return jsonify({'error': 'Internal server error'}), 500
 ```
 
-Now, add a `.flaskenv` file and add the appropriate environment variables: 
+Now, if you don't already have a `.flaskenv` file in the `api` directory, create a file and add the appropriate environment variables: 
 ```
 FLASK_APP=api.py
 FLASK_ENV=development
 ```
 
-now you can run `flask run` from the `api` directory. with no errors, the terminal should look like this:
+now you can run `flask run` from the `api` directory (you might need to open a new terminal if you already have your react app running). with no errors, the terminal should look like this:
 <img width="500" alt="Screenshot 2023-12-30 at 8 02 16 PM" src="https://github.com/lauraspberry/data-visualizer-cody/assets/51841883/c437c1f1-cb60-43a2-853d-a693822fdac0">
 
 
@@ -102,21 +109,9 @@ now, we need to configure the react app to connect to flask. find package.json a
 ```
 "When you do this, do not forget to add a comma at the end of the previous line, as without that comma the file would not be a valid JSON file."
 
-add ```__pycache__``` to the .gitignore file that should alr be there
+now add a few lines to the frontend that call our API. 
 
-now add a few lines to the frontend that call our API and fetch the time. 
-<img width="545" alt="Screenshot 2023-12-30 at 8 01 54 PM" src="https://github.com/lauraspberry/data-visualizer-cody/assets/51841883/f6a3b838-7a39-42b1-be59-dd9c1d87e2dc">
+Your API call will look like: `const response = await fetch(`/api/general/stats`);`
 
+You should now be able to access the response! 
 
-now, commit your changes to git! 
-
-
-
-# Implementing Python Wrappers 
-
-experimental
-
-```
-pip install python-overwatch
-pip install riotwatcher
-```
