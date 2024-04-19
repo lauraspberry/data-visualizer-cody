@@ -70,7 +70,7 @@ install flask if you haven't already
 pip install flask python-dotenv
 ```
 
-then, make an API dir: 
+then, while in your react app dir, make an API dir: 
 ```
 $ mkdir api
 $ cd api
