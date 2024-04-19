@@ -100,6 +100,7 @@ FLASK_ENV=development
 ```
 
 now you can run `flask run` from the `api` directory (you might need to open a new terminal if you already have your react app running). with no errors, the terminal should look like this:
+
 <img width="500" alt="Screenshot 2023-12-30 at 8 02 16 PM" src="https://github.com/lauraspberry/data-visualizer-cody/assets/51841883/c437c1f1-cb60-43a2-853d-a693822fdac0">
 
 
@@ -109,9 +110,10 @@ now, we need to configure the react app to connect to flask. find package.json a
 ```
 "When you do this, do not forget to add a comma at the end of the previous line, as without that comma the file would not be a valid JSON file."
 
-now add a few lines to the frontend that call our API. 
-
-Your API call will look like: `const response = await fetch(`/api/general/stats`);`
+now add a few lines to the frontend that call our API. Your API call will look like: 
+```
+const response = await fetch(`/api/general/stats`);
+```
 
 You should now be able to access the response! 
 
