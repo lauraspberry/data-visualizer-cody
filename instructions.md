@@ -81,6 +81,8 @@ In the API folder, create a single file called _api.py_:
 from flask import Flask, jsonify
 import requests
 
+app = Flask(__name__)
+
 @app.route('/api/general/stats')
 def proxy():
     try:
